@@ -20,13 +20,13 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@PropertySource(value = {"classpath:/user.jdbc.properties", "classpath:/user.hibernate.properties"})
+@PropertySource(value = {"classpath:/userdb.jdbc.properties", "classpath:/user.hibernate.properties"})
 @EnableTransactionManagement
 @EnableJpaRepositories("my.app.repository")
 @ComponentScan("my.app")
 public class DataConfig {
 
-    @Bean
+    @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(DataSource dataSource, Properties properties) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
@@ -41,10 +41,13 @@ public class DataConfig {
     public DataSource dataSource(
             @Value("${url}") String url,
             @Value("${driver}") String driver,
-            @Value("${username}") String username,
+            @Value("${name}") String username,
             @Value("${password}") String password
     ) {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource(url,username,password);
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setUrl(url);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
         dataSource.setDriverClassName(driver);
         return dataSource;
     }
@@ -61,12 +64,15 @@ public class DataConfig {
     public Properties properties(
             @Value("${hibernate.dialect}") String dialect,
             @Value("${hibernate.current_session_context_class}") String sessionContext,
-            @Value("${hibernate.show_sql}") String showSql
+            @Value("${hibernate.show_sql}") String showSql,
+            @Value("${hibernate.hbm2ddl_auto}") String hbm2ddl
     ) {
         Properties properties = new Properties();
         properties.put(Environment.DIALECT, dialect);
         properties.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, sessionContext);
         properties.put(Environment.SHOW_SQL, showSql);
+        properties.put(Environment.HBM2DDL_AUTO, hbm2ddl);
+
         return properties;
     }
 
