@@ -35,7 +35,7 @@ public class UserService {
 
     @Transactional
     public List<UserDTO> getUsersWithPaginationWithTenUnits(int pageNumber) {
-        return userRepository.findAll(PageRequest.of(pageNumber, PAGE_SIZE, Sort.unsorted()))
+        return userRepository.findAll(PageRequest.of(pageNumber, PAGE_SIZE, Sort.by("email")))
                 .stream().map(UserMapper::toDTO).collect(Collectors.toList());
     }
 }

@@ -5,6 +5,8 @@ import my.app.service.ServiceContextConfig;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletContainerInitializer;
 import javax.servlet.ServletContext;
@@ -15,8 +17,11 @@ import java.util.Set;
 @Component
 public class ServletContainerInitializerImpl implements ServletContainerInitializer {
 
+    private static final Logger logger = LogManager.getLogger(ServletContainerInitializerImpl.class);
+
     @Override
     public void onStartup(Set<Class<?>> c, ServletContext ctx) throws ServletException {
+        logger.info("Starting container initialization");
         AnnotationConfigWebApplicationContext context =
                 new AnnotationConfigWebApplicationContext();
         context.register(WebConfiguration.class);
