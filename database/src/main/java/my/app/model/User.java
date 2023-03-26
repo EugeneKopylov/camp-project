@@ -39,4 +39,11 @@ public class User implements Serializable {
     @Column(name = "role")
     private String role;
 
+    public User(String firstname, String lastname, String surname, String email, String role) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.surname = surname;
+        this.email = email;
+        this.role = role;
+    }
 }

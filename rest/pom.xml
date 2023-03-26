@@ -53,7 +53,7 @@
     </dependencies>
 
     <build>
-        <finalName>boot_camp</finalName>
+        <finalName>bootcamp</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -65,7 +65,7 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-                    <path>/boot_camp</path>
+                    <path>/bootcamp</path>
                     <username>tomcat</username>
                     <password>tomcat</password>
                 </configuration>

@@ -14,4 +14,14 @@ public class UserMapper {
                 user.getRole()
         );
     }
+
+    public static User fromDTO(UserDTO userDTO) {
+        return new User(
+                userDTO.getFirstName(),
+                userDTO.getSecondName(),
+                userDTO.getSurname(),
+                userDTO.getEmail(),
+                userDTO.getRole()
+        );
+    }
 }
